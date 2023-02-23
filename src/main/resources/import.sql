@@ -1,0 +1,5 @@
+--INSERT INTO users VALUES (1, 'durgesh','durgesh');
+--INSERT INTO roles VALUES (1,'ROLE_ADMIN');
+--INSERT INTO roles VALUES (2,'ROLE_MANAGER');
+--INSERT INTO user_role VALUES(1,1);
+--INSERT INTO user_role VALUES(1,2);
