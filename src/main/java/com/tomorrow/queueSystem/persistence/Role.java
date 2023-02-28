@@ -17,7 +17,6 @@ public class Role {
     @GeneratedValue(strategy = IDENTITY)
     private Long roleId;
 
-    @NotEmpty
     private String name;
 
     public Long getRoleId() {

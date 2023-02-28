@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-
+import javax.persistence.Entity;
 import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;

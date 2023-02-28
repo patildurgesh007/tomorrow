@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-
-import java.time.Instant;
 import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -25,13 +23,10 @@ public class JobRequest {
     @GeneratedValue(strategy = IDENTITY)
     private Long requestId;
 
-    @NotEmpty
     private Long userId;
 
-    @NotEmpty
     private Long jobId;
 
-    @NotEmpty
     private Long duration;
 
     private Date creationDate;
@@ -46,29 +41,6 @@ public class JobRequest {
 
     private Priority priority;
 
-    public JobRequest() {
-        this.priority = Priority.LOW;
-        this.creationDate = Date.from(Instant.now());
-        this.status = Status.CREATE;
-    }
-
-    public JobRequest(Long userId, Long jobId, Long duration) {
-        this.userId = userId;
-        this.jobId = jobId;
-        this.duration = duration;
-        this.priority = Priority.LOW;
-        this.creationDate = Date.from(Instant.now());
-        this.status = Status.CREATE;
-    }
-
-    public JobRequest(Long userId, Long jobId, Long duration, Priority priority) {
-        this.userId = userId;
-        this.jobId = jobId;
-        this.duration = duration;
-        this.priority = priority;
-        this.creationDate = Date.from(Instant.now());
-        this.status = Status.CREATE;
-    }
 
     public Long getRequestId() {
         return requestId;
@@ -148,5 +120,21 @@ public class JobRequest {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    @Override
+    public String toString() {
+        return "JobRequest{" +
+                "requestId=" + requestId +
+                ", userId=" + userId +
+                ", jobId=" + jobId +
+                ", duration=" + duration +
+                ", creationDate=" + creationDate +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", status=" + status +
+                ", jobRequestDescription='" + jobRequestDescription + '\'' +
+                ", priority=" + priority +
+                '}';
     }
 }

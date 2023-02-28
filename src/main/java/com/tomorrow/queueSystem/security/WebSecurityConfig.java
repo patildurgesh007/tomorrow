@@ -33,18 +33,9 @@ public class WebSecurityConfig {
     RequestMatcher requestMatcherFirstUser = new RequestMatcher() {
         @Override
         public boolean matches(HttpServletRequest request) {
-            return request.getRequestURI().contains("/userManagement/firstUser");
+            return request.getRequestURI().contains("/**");
         }
     };
-
-//    @Bean
-//    public UserDetailsService getUserDetailsService(BCryptPasswordEncoder passwordEncoder) {
-//        UserDetails admin = User.withUsername("admin")
-//                .password(passwordEncoder.encode("admin"))
-//                .roles("ADMIN")
-//                .build();
-//        return new CustomUserDetailsService();
-//    }
 
     @Bean
     public UserDetailsService getUserDetailsService() {

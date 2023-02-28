@@ -5,6 +5,5 @@ public enum Status {
     PENDING,
     PROCESSING,
     COMPLETE,
-    INTERNAL_ERROR,
     FAILED
 }
