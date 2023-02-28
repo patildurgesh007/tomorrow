@@ -1,32 +1,31 @@
 package com.tomorrow.queueSystem.persistence;
 
-import org.springframework.stereotype.Repository;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import javax.persistence.Entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.persistence.Entity;
 import java.util.Set;
-
 import static javax.persistence.GenerationType.IDENTITY;
 
-@Repository
 @Entity(name = "users")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class User {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long userId;
 
-    @NotEmpty
+    @Column(unique = true)
     private String name;
 
     @NotEmpty
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = {@JoinColumn(name = "userId", referencedColumnName = "userId")},
+            inverseJoinColumns = {@JoinColumn(name = "roleId", referencedColumnName = "roleId")})
     private Set<Role> roles;
 
     public User() {

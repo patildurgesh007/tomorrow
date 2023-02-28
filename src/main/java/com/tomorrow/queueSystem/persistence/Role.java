@@ -1,23 +1,41 @@
 package com.tomorrow.queueSystem.persistence;
 
-import javax.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import javax.persistence.*;
+import java.util.Set;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity(name = "roles")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Role {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long roleId;
 
+    @Column(nullable = false)
     private String name;
+
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+    private Set<User> users;
+
+    public Role() {
+    }
+
+    public Role(Long roleId, String name) {
+        this.roleId = roleId;
+        this.name = name;
+    }
+
+    public Role(Long roleId) {
+        this.roleId = roleId;
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
 
     public Long getRoleId() {
         return roleId;

@@ -1,14 +1,18 @@
 package com.tomorrow.queueSystem.service;
 
+import com.tomorrow.queueSystem.persistence.Role;
 import com.tomorrow.queueSystem.persistence.User;
+import com.tomorrow.queueSystem.repository.RoleRepository;
 import com.tomorrow.queueSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -19,7 +23,23 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     public void save(User user) {
+        Set<Role> roleSet = new HashSet<>();
+        Set<Role> userRoles = user.getRoles();
+        if(!userRoles.isEmpty()){
+            for(Role userRole:userRoles){
+                Optional<Role> roleByName = roleRepository.findByName(userRole.getName());
+                if(roleByName.isPresent()){
+                    roleSet.add(roleByName.get());
+                }else {
+                    roleSet.add(new Role(userRole.getName()));
+                }
+            }
+            user.setRoles(roleSet);
+        }
         userRepository.save(user);
     }
 
