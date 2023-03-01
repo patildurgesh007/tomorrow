@@ -28,7 +28,6 @@ public class JobRequestController {
     @Autowired
     private IAuthenticationFacade authenticationFacade;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     @PostMapping("/jobRequest")
     public ResponseEntity save(@RequestBody @Valid JobRequest jobRequest) {
         String validationStatus = jobRequestService.isValidJobRequest(jobRequest);
@@ -41,7 +40,6 @@ public class JobRequestController {
         return new ResponseEntity(validationStatus,HttpStatus.BAD_REQUEST);
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     @PostMapping("/jobRequestList")
     public ResponseEntity saveJobRequestList(@RequestBody List<JobRequest> jobRequestList) {
         for(JobRequest jobRequest : jobRequestList) {
