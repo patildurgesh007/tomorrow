@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,7 +27,7 @@ public class JobController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     @PostMapping("/job")
-    public ResponseEntity save(@RequestBody Job job) {
+    public ResponseEntity save(@RequestBody @Valid Job job) {
         jobService.save(job);
         return new ResponseEntity(job, HttpStatus.OK);
     }

@@ -7,5 +7,6 @@ public class Constants {
     public static final String JOB_NOT_EXISTS = "JOB_NOT_EXISTS";
     public static final String PRIORITY_AUTHORIZATION_ISSUE = "Current user cannot submit High Priority tasks";
     public static final String JOB_FAILED_MESSAGE = "Error occur during processing the job";
+    public static final String EMAIL_SUBJECT_LINE = "QueueSystemApplication Job Request Status Update. RequestId: ";
     public static final int ZERO = 0;
 }

@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,7 +41,7 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PostMapping("/user")
-    public ResponseEntity addUser(@RequestBody User user){
+    public ResponseEntity addUser(@RequestBody @Valid User user){
         String encryptedPassword =  passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
         userService.save(user);
@@ -53,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/firstUser")
-    public ResponseEntity addFirstUser(@RequestBody User user){
+    public ResponseEntity addFirstUser(@RequestBody @Valid User user){
         addUser(user);
         return new ResponseEntity(user, HttpStatus.OK);
     }

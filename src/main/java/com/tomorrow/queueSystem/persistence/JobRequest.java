@@ -137,4 +137,17 @@ public class JobRequest {
                 ", priority=" + priority +
                 '}';
     }
+
+    public String toStringForEmail() {
+        return  "\nrequestId=" + requestId +
+                "\nuserId=" + userId +
+                "\njobId=" + jobId +
+                "\nduration=" + duration +
+                "\ncreationDate=" + creationDate +
+                "\nstartDate=" + startDate +
+                "\nendDate=" + endDate +
+                "\nstatus=" + status +
+                "\njobRequestDescription='" + jobRequestDescription + '\'' +
+                "\npriority=" + priority;
+    }
 }

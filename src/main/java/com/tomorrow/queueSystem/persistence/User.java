@@ -2,9 +2,11 @@ package com.tomorrow.queueSystem.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -18,8 +20,12 @@ public class User {
     @Column(unique = true)
     private String name;
 
-    @NotEmpty
+    @NotEmpty(message = "password is empty")
     private String password;
+
+    @NotEmpty(message = "Email is Empty.")
+    @Email(message = "Email is not valid.")
+    private String emailAddress;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(
@@ -63,11 +69,20 @@ public class User {
         this.roles = roles;
     }
 
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + userId +
                 ", name='" + name + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
                 ", role=" + roles +
                 '}';
     }

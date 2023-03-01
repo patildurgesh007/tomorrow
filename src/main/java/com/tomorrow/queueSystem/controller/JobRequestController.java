@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,7 @@ public class JobRequestController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_MANAGER')")
     @PostMapping("/jobRequest")
-    public ResponseEntity save(@RequestBody JobRequest jobRequest) {
+    public ResponseEntity save(@RequestBody @Valid JobRequest jobRequest) {
         String validationStatus = jobRequestService.isValidJobRequest(jobRequest);
         if(Constants.VALID_REQUEST.equals(validationStatus)){
             jobRequestService.fillDefaultDetails(jobRequest);
