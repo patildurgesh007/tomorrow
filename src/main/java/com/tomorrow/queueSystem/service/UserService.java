@@ -4,6 +4,9 @@ import com.tomorrow.queueSystem.persistence.Role;
 import com.tomorrow.queueSystem.persistence.User;
 import com.tomorrow.queueSystem.repository.RoleRepository;
 import com.tomorrow.queueSystem.repository.UserRepository;
+import com.tomorrow.queueSystem.utility.JobExecutorEventListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.Authentication;
@@ -25,6 +28,8 @@ public class UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public void save(User user) {
         Set<Role> roleSet = new HashSet<>();

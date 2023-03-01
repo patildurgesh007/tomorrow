@@ -55,18 +55,9 @@ public class WebSecurityConfig {
                 .requestMatchers(requestMatcherFirstUser)
                 .permitAll()
                 .and()
-//                .authorizeHttpRequests()
-//                .requestMatchers(requestMatcherUserManagement)
-//                .authenticated()
-//                .anyRequest()
-//                .hasAnyRole("ADMIN")
-//                .and()
                 .httpBasic()
                 .and()
                 .build();
-//                .formLogin()
-//                .permitAll()
-//                .and().build();
     }
 
     @Bean

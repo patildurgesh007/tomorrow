@@ -3,6 +3,8 @@ package com.tomorrow.queueSystem.service;
 import com.tomorrow.queueSystem.utility.Constants;
 import com.tomorrow.queueSystem.utility.JobExecutorEvent;
 import com.tomorrow.queueSystem.utility.Status;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Scope;
@@ -23,6 +25,7 @@ public class PriorityJobSchedulerService {
     private ExecutorService priorityJobPoolExecutor;
     private ExecutorService priorityJobScheduler  = Executors.newSingleThreadExecutor();
     private PriorityBlockingQueue<ExecutableJob> priorityQueue;
+    Logger logger = LoggerFactory.getLogger(PriorityJobSchedulerService.class);
 
     public ExecutorService getPriorityJobPoolExecutor() {
         return priorityJobPoolExecutor;
@@ -49,6 +52,7 @@ public class PriorityJobSchedulerService {
     }
 
     public PriorityJobSchedulerService(Integer poolSize, Integer queueSize) {
+        logger.info("Inside PriorityJobSchedulerService constructor. PoolSize -" + poolSize + " and QueueSize - " + queueSize);
         this.priorityJobPoolExecutor = Executors.newFixedThreadPool(poolSize);
         this.priorityQueue = new PriorityBlockingQueue<>(
                 queueSize,
@@ -70,10 +74,12 @@ public class PriorityJobSchedulerService {
     public void scheduleJob(ExecutableJob executableJob) {
         publisher.publishEvent(new JobExecutorEvent(executableJob.getJobRequest(), Status.PENDING));
         priorityQueue.add(executableJob);
+        logger.info("Request job scheduled. Request Id - " + executableJob.getJobRequest().getRequestId());
     }
 
     public void scheduleJobs(List<ExecutableJob> executableJobList) {
         executableJobList.stream().forEach(executableJob -> publisher.publishEvent(new JobExecutorEvent(executableJob.getJobRequest(), Status.PENDING)));
         priorityQueue.addAll(executableJobList);
+        logger.info("RequestJob batch is scheduled. Number of jobs in Batch - " + executableJobList.size());
     }
 }

@@ -52,8 +52,8 @@ public class MailService implements Runnable{
         this.jobRequest = jobRequest;
     }
 
-    public void sendEmailNew() {
-        logger.debug("Inside sendEmailNew method for Request - " + jobRequest.getRequestId());
+    public void sendEmail() {
+        logger.debug("Inside sendEmail method for Request - " + jobRequest.getRequestId());
         String receiverEmailAddress = getCurrentUserEmailAddress(jobRequest);
         Properties properties = System.getProperties();
         properties.put("mail.smtp.host", host);
@@ -78,7 +78,7 @@ public class MailService implements Runnable{
             logger.info("Sending mail service failed for Request - " + jobRequest.getRequestId());
             mex.printStackTrace();
         }
-        logger.debug("Complete sendEmailNew method for Request - " + jobRequest.getRequestId());
+        logger.debug("Complete sendEmail method for Request - " + jobRequest.getRequestId());
     }
     public String getCurrentUserEmailAddress(JobRequest jobRequest) {
         User user = userService.findById(jobRequest.getUserId());
@@ -91,6 +91,6 @@ public class MailService implements Runnable{
 
     @Override
     public void run() {
-        sendEmailNew();
+        sendEmail();
     }
 }

@@ -5,6 +5,8 @@ import com.tomorrow.queueSystem.utility.Constants;
 import com.tomorrow.queueSystem.utility.JobExecutorEvent;
 import com.tomorrow.queueSystem.utility.Priority;
 import com.tomorrow.queueSystem.utility.Status;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Scope;
@@ -18,6 +20,8 @@ public class ExecutableJob implements Runnable{
 
     @Autowired
     private ApplicationEventPublisher publisher;
+
+    Logger logger = LoggerFactory.getLogger(ExecutableJob.class);
 
     private JobRequest jobRequest;
     private Priority priority;
@@ -49,7 +53,7 @@ public class ExecutableJob implements Runnable{
     @Override
     public void run() {
         try {
-            System.out.println("Executing Job : " + this.toString());
+            logger.info("Executing Job : " + this);
             publisher.publishEvent(new JobExecutorEvent(jobRequest,Status.PROCESSING));
             Thread.sleep(jobRequest.getDuration() * 1000);
             publisher.publishEvent(new JobExecutorEvent(jobRequest,Status.COMPLETE));

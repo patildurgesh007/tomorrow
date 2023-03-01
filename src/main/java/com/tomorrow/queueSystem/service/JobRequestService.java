@@ -6,6 +6,8 @@ import com.tomorrow.queueSystem.persistence.User;
 import com.tomorrow.queueSystem.repository.JobRequestRepository;
 import com.tomorrow.queueSystem.security.IAuthenticationFacade;
 import com.tomorrow.queueSystem.utility.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
@@ -42,6 +44,8 @@ public class JobRequestService {
 
     ExecutableJob executableJob;
 
+    Logger logger = LoggerFactory.getLogger(JobRequestService.class);
+
     public void save(JobRequest jobRequest) {
         jobRequestRepository.save(jobRequest);
     }
@@ -59,32 +63,40 @@ public class JobRequestService {
     }
 
     public boolean isAuthorizedUser(JobRequest jobRequest) {
+        logger.debug("Validating user for Request - " + jobRequest.getRequestId());
         Authentication authentication = authenticationFacade.getAuthentication();
         String userName = authentication.getName();
         User currentUser = getCurrentUser();
         if(currentUser != null){
             if(userName.equalsIgnoreCase(currentUser.getName())){
+                logger.debug(currentUser.getName() + " is Authorized for the request Id - " + jobRequest.getRequestId());
                 return true;
             }
         }
+        logger.debug("User is NOT Authorized for the request Id - " + jobRequest.getRequestId());
         return false;
     }
 
     public String isValidJobRequest(JobRequest jobRequest) {
+        logger.debug("Validating the Job Request. Request Id - " + jobRequest.getRequestId());
         User currentUser = getCurrentUser();
         if(currentUser == null){
+            logger.error("Invalid user details in Request Id - " + jobRequest.getRequestId());
             return Constants.USER_NOT_EXISTS;
         }
         Job job = jobService.findById(jobRequest.getJobId());
         if(job == null){
+            logger.error("Invalid Job details in Request Id - " + jobRequest.getRequestId());
             return Constants.JOB_NOT_EXISTS;
         }
         if(jobRequest.getPriority()!= null && Priority.HIGH.equals(jobRequest.getPriority())){
             if(!UtilsImpl.isCurrentUserRoleWithin(currentUser, RoleEnum.ROLE_ADMIN,RoleEnum.ROLE_MANAGER)){
+                logger.error("Unauthorized user to submit High priority Request. Request Id - " + jobRequest.getRequestId());
                 return Constants.PRIORITY_AUTHORIZATION_ISSUE;
             }
         }
         jobRequest.setUserId(currentUser.getUserId());
+        logger.info("Request validated successfully. Request Id - " + jobRequest.getRequestId());
         return Constants.VALID_REQUEST;
     }
 
