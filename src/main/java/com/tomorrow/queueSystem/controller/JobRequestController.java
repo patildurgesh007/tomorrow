@@ -4,6 +4,8 @@ import com.tomorrow.queueSystem.persistence.JobRequest;
 import com.tomorrow.queueSystem.security.IAuthenticationFacade;
 import com.tomorrow.queueSystem.service.JobRequestService;
 import com.tomorrow.queueSystem.utility.Constants;
+import com.tomorrow.queueSystem.utility.RoleEnum;
+import com.tomorrow.queueSystem.utility.UtilsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
@@ -78,5 +80,20 @@ public class JobRequestController {
     @DeleteMapping("/jobRequest")
     public void delete(@RequestBody JobRequest jobRequest) {
         jobRequestService.delete(jobRequest);
+    }
+
+    @PostMapping("/terminate")
+    public ResponseEntity terminateJobRequest(@RequestBody @Valid JobRequest jobRequest) {
+        if (jobRequest != null) {
+            if (jobRequestService.isAuthorizedUser(jobRequest) || UtilsImpl.isCurrentUserRoleWithin(jobRequestService.getCurrentUser(), RoleEnum.ROLE_ADMIN,RoleEnum.ROLE_MANAGER)) {
+               boolean success =  jobRequestService.terminateJob(jobRequest);
+               if(success){
+                   return new ResponseEntity(jobRequest, HttpStatus.OK);
+               }
+               return new ResponseEntity(jobRequest,HttpStatus.NOT_MODIFIED);
+            }
+            return new ResponseEntity(Constants.NOT_AUTHORIZED_USER, HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 }

@@ -1,0 +1,320 @@
+{
+	"info": {
+		"_postman_id": "3e97a3c0-12bf-4b31-80a7-2d14373f14ee",
+		"name": "tmrw",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1117007"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/userManagement/firstUser",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"admin\",\n    \"password\": \"admin\",\n    \"roles\": [\n        {\n            \"name\": \"ROLE_ADMIN\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/userManagement/firstUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"userManagement",
+						"firstUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "durgesh",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "durgesh",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/jobRequest/allJobRequests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jobRequest",
+						"allJobRequests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/userManagement/firstUser",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"admin\",\n    \"password\": \"admin\",\n    \"emailAddress\" : \"patildurgesh007@gmail.com\",\n    \"roles\": [\n        {\n            \"name\": \"ROLE_ADMIN\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/userManagement/firstUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"userManagement",
+						"firstUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/userManagement/user",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"durgesh\",\n    \"password\": \"durgesh\",\n    \"emailAddress\" : \"patildurgesh007@gmail.com\",\n    \"roles\": [\n        {\n            \"name\": \"ROLE_ADMIN\"\n        },\n        {\n            \"name\": \"ROLE_MANAGER\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/userManagement/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"userManagement",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/jobManagement/job",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "durgesh",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "durgesh",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"FilterJob\",\n    \"description\": \"This job Filter data\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/jobManagement/job",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jobManagement",
+						"job"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/jobRequest/jobRequest",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "durgesh",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "durgesh",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": 2,\n    \"jobId\" : 1,\n    \"duration\" : 20,\n    \"priority\": \"HIGH\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/jobRequest/jobRequest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jobRequest",
+						"jobRequest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/jobRequest/jobRequestList",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "durgesh",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "durgesh",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"userId\": 2,\n        \"jobId\": 1,\n        \"duration\": 5,\n        \"priority\": \"LOW\"\n    },\n     {\n        \"userId\": 2,\n        \"jobId\": 1,\n        \"duration\": 5,\n        \"priority\": \"MEDIUM\"\n    },\n     {\n        \"userId\": 2,\n        \"jobId\": 1,\n        \"duration\": 5,\n        \"priority\": \"HIGH\"\n    },\n     {\n        \"userId\": 2,\n        \"jobId\": 1,\n        \"duration\": 5,\n        \"priority\": \"LOW\"\n    },\n    {\n        \"userId\": 2,\n        \"jobId\": 1,\n        \"duration\": 5,\n        \"priority\": \"LOW\"\n    },\n    {\n        \"userId\": 2,\n        \"jobId\": 1,\n        \"duration\": 5,\n        \"priority\": \"HIGH\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/jobRequest/jobRequestList",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jobRequest",
+						"jobRequestList"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/userManagement/allUsers",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/userManagement/allUsers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"userManagement",
+						"allUsers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

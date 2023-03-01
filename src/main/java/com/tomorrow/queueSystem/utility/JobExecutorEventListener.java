@@ -46,9 +46,18 @@ public class JobExecutorEventListener {
             completeEventOperations(jobExecutorEvent.jobRequest,jobExecutorEvent.getStatus());
         } if(Status.FAILED.equals(jobExecutorEvent.getStatus())){
             failedEventOperations(jobExecutorEvent.jobRequest,jobExecutorEvent.getStatus());
+        } if(Status.TERMINATE.equals(jobExecutorEvent.getStatus())){
+            terminateEventOperations(jobExecutorEvent.jobRequest,jobExecutorEvent.getStatus());
         }
         jobRequestService.save(jobExecutorEvent.jobRequest);
         logger.debug("Complete onJobExecutorEvent for Request - " + jobExecutorEvent.jobRequest.getRequestId());
+    }
+
+    private void terminateEventOperations(JobRequest jobRequest, Status status) {
+        logger.debug("Inside processingEventOperations for Request - " + jobRequest.getRequestId());
+        jobRequest.setEndDate(Date.from(Instant.now()));
+        jobRequest.setStatus(status);
+        intimateUser(jobRequest);
     }
 
     private void processingEventOperations(JobRequest jobRequest, Status status) {

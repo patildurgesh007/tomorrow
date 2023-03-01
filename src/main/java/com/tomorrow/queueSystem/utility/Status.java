@@ -8,5 +8,6 @@ public enum Status {
     PENDING,
     PROCESSING,
     COMPLETE,
-    FAILED
+    TERMINATE,
+    FAILED;
 }

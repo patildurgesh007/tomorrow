@@ -136,4 +136,18 @@ public class JobRequestService {
             priorityJobSchedulerService.scheduleJobs(executableJobList);
         }
     }
+
+    public boolean terminateJob(JobRequest jobRequest) {
+        priorityJobSchedulerService = context.getBean(PriorityJobSchedulerService.class);
+        PriorityBlockingQueue<ExecutableJob> priorityQueue = priorityJobSchedulerService.getPriorityQueue();
+        Optional<ExecutableJob> executableJobOptional = priorityQueue.stream().filter(exeJob -> exeJob.getJobRequest().getRequestId().equals(jobRequest.getRequestId())).findFirst();
+        if(executableJobOptional.isPresent()){
+            ExecutableJob  executableJob = executableJobOptional.get();
+            priorityQueue.remove(executableJob);
+            logger.info("JobRequest removed successfully. Request ID - " + executableJob.getJobRequest().getRequestId());
+            publisher.publishEvent(new JobExecutorEvent(executableJob.getJobRequest(), Status.TERMINATE));
+            return true;
+        }
+        return false;
+    }
 }
