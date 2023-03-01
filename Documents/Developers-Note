@@ -1,0 +1,6 @@
+This application is Developed to Executes Jobs Submitted by Multiple clients.
+Each job submission includes the user ID, job ID, and job duration. Validation will performed to validate if User and Job associate with UserId and JobId is exists or Not.
+Job processor can only handle one job at a time. Processors and be Increase or Decrease as per the requirement. This can be achieve by Application.properies file with the Attribute "tomorrow.queueSystem.poolSize"
+Spring Security is used to achieve security mechanism in the application.
+Jobs will processed in the order they were submitted, but HIGH prioritized can be execute first. HIGH prioritized jobs can be submitted by user only having 'ADMIN' and 'MANAGER' role assigned. Other users cannot initiate HIGH priority jobs.
+JobRequest can be monitor by Request owner, Admin Role user can monitor and access all jobs.
