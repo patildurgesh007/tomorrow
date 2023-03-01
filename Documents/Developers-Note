@@ -4,3 +4,4 @@ Job processor can only handle one job at a time. Processors and be Increase or D
 Spring Security is used to achieve security mechanism in the application.
 Jobs will processed in the order they were submitted, but HIGH prioritized can be execute first. HIGH prioritized jobs can be submitted by user only having 'ADMIN' and 'MANAGER' role assigned. Other users cannot initiate HIGH priority jobs.
 JobRequest can be monitor by Request owner, Admin Role user can monitor and access all jobs.
+Pending Jobs can be Terminate by Owner and Admin.
