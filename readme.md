@@ -19,3 +19,10 @@
 ### JobRequest - 
 #### class is entity contains all request related information.
 
+##Documentation
+### SpringDoc Openapi html page
+#### http://localhost:8080/swagger-ui.html
+
+### SpringDoc Openapi REST Api
+#### http://localhost:8080/api-docs/
+
